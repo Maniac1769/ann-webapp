@@ -5,7 +5,7 @@ from streamlit_option_menu import option_menu
 
 # loading the saved models
 
-ann_model = pickle.load(open('artificial_neural_network.sav', 'rb'))
+ann_model = pickle.load(open('artificial_neural_network.ipynb', 'rb'))
 
 st.title('Churn Modellin using AI')
     
