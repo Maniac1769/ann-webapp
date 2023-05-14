@@ -8,6 +8,31 @@ from streamlit_option_menu import option_menu
 pickle_in=open('ann.pkl','rb')
 ann_model = pickle.load(pickle_in)
 
+
+
+dataset = pd.read_csv('Churn_Modelling.csv')
+X = dataset.iloc[:, 3:-1].values
+y = dataset.iloc[:, -1].values
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+X[:, 2] = le.fit_transform(X[:, 2])
+
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [1])], remainder='passthrough')
+X = np.array(ct.fit_transform(X))
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+
+
 st.title('Churn Modellin using AI')
     
     
@@ -52,7 +77,7 @@ churn_diagnosis = ''
     # creating a button for Prediction
     
 if st.button('Churn modelling Result'):
-    churn_prediction = ann_model.predict([[geographyonehot_1,geographyonehot_2,geographyonehot_3,creditscore,gender,age,tenure,balance,numberofproducts,hascrcard,isactivemember,estimatedsalary]])
+    churn_prediction = ann_model.predict(sc.transform([[geographyonehot_1,geographyonehot_2,geographyonehot_3,creditscore,gender,age,tenure,balance,numberofproducts,hascrcard,isactivemember,estimatedsalary]]))
         
     if (churn_prediction[0] == 1):
         churn_diagnosis = 'The customer stays'
