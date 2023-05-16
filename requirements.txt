@@ -1,7 +1,5 @@
 numpy
 pickle-mixin
-tensorflow==2.2
 streamlit
-keras==2.4.3
 streamlit-option-menu
 scikit-learn
