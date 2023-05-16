@@ -4,8 +4,10 @@ from streamlit_option_menu import option_menu
 
 # loading the saved models
 
-pickle_in=open('saved_model.pb','rb')
-ann_model = pickle.load(pickle_in)
+from tensorflow.keras.models import load_model
+ 
+# load model
+ann_model = load_model('save_model.pb')
 
 
 
