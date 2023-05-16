@@ -2,12 +2,6 @@ import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-from keras.datasets import mnist
-from keras.layers.core import Dense, Activation
-from keras.models import Sequential
-from keras.optimizers import Nadam  # Stochastic Gradient Descend
-from keras.utils import np_utils
-
 # loading the saved models
 
 pickle_in=open('ann.pkl','rb')
